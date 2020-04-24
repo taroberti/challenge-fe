@@ -6,9 +6,9 @@ import Col from 'react-bootstrap/Col';
 
 const Landing = () => (
   <div>
-    <Container fluid>
+    <Container fluid className='mt-4'>
       <Row>
-        <Col><h2 className="text-center">Welcome!</h2></Col>
+        <Col><h2 className='text-center'>Welcome!</h2></Col>
       </Row>
     </Container>
   </div>

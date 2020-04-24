@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ROUTES from '../../constants/routes';
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
+import LoginPage from '../Login';
 
 const App = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const App = () => (
       <Navigation />
 
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
+      <Route exact path={ROUTES.LOGIN} component={LoginPage} />
     </div>
   </BrowserRouter>
 );
