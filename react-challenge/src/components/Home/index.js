@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { withAuthorization } from '../Session';
+
 const HomePage = () => (
   <div>
     <Container fluid className='mt-4'>
@@ -17,4 +19,4 @@ const HomePage = () => (
   </div>
 );
 
-export default HomePage;
+export default withAuthorization(HomePage);

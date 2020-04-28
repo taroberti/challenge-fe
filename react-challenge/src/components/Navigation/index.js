@@ -7,14 +7,15 @@ import Container from 'react-bootstrap/Container';
 import * as ROUTES from '../../constants/routes';
 import LogOutButton from '../Logout';
 
-const Navigation = ({ authUser }) => (
-  <div>
-    { 
-      authUser ? 
+import { AuthUserContext } from '../Session';
+
+const Navigation = () => (
+  <AuthUserContext.Consumer>
+    { authUser => authUser ?
         <NavigationAuth /> : 
         <NavigationNonAuth /> 
     }
-  </div>
+  </AuthUserContext.Consumer>
 );
 
 const NavigationAuth = () => (

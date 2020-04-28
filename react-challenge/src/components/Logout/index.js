@@ -7,10 +7,6 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 class LogOutButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onLogOutClick = () => {
     this.props.firebase.doSignOut();
   
