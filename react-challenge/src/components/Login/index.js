@@ -86,7 +86,7 @@ class LogInFormBase extends Component {
                       <Form.Control type='password' name='password' placeholder='Enter Password' value={ password } onChange={ this.onFormChange }/>
                     </Form.Group>
     
-                    <Button className='bg-dark border-dark' block variant='primary' type='submit' onClick={ this.onFormSubmit } disabled={ isInvalid }>
+                    <Button block variant='dark' type='submit' onClick={ this.onFormSubmit } disabled={ isInvalid }>
                       Log In
                     </Button>
                   </Form>
