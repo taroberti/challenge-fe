@@ -58,3 +58,4 @@ const NavigationNonAuth = () => (
 );
 
 export default Navigation;
+export { NavigationAuth, NavigationNonAuth }

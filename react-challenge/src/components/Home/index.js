@@ -20,3 +20,4 @@ const HomePage = () => (
 );
 
 export default withAuthorization(HomePage);
+export { HomePage };
