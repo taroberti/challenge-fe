@@ -1,0 +1,7 @@
+{
+  "URL": "http://localhost",
+  "port": 4000,
+  "paths": {
+    "orders": "/orders"
+  }
+}

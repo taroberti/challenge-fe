@@ -8,6 +8,7 @@ import Navigation from '../Navigation';
 import LandingPage from '../Landing';
 import HomePage from '../Home';
 import LoginPage from '../Login';
+import OrdersPage from '../Orders';
 
 import { withAuthentication  } from '../Session';
 
@@ -19,6 +20,7 @@ const App = () => (
       <Route exact path={ ROUTES.LANDING } component={ LandingPage } />
       <Route exact path={ ROUTES.HOME } component={ HomePage } />
       <Route exact path={ ROUTES.LOGIN } component={ LoginPage } />
+      <Route exact path={ ROUTES.ORDERS } component={ OrdersPage } />
     </div>
   </BrowserRouter>
 );
