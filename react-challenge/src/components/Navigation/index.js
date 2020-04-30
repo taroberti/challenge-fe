@@ -1,24 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
 import * as ROUTES from '../../constants/routes';
-import LogOutButton from '../Logout';
 
 import { AuthUserContext } from '../Session';
+import { withFirebase } from '../Firebase';
 
-const Navigation = () => (
-  <AuthUserContext.Consumer>
-    { authUser => authUser ?
-        <NavigationAuth /> : 
-        <NavigationNonAuth /> 
-    }
-  </AuthUserContext.Consumer>
-);
-
-const NavigationAuth = () => (
+const NavigationAuth = props => (
   <div>
     <Container fluid>
       <Navbar bg='dark' variant='dark'>
@@ -32,7 +23,7 @@ const NavigationAuth = () => (
         </Nav>
 
         <Nav className='justify-content-end'>
-          <LogOutButton />
+          <Nav.Link className='text-white' href={ ROUTES.LOGIN } onClick={ props.onLogOutClick }>Log Out</Nav.Link>
         </Nav>
       </Navbar>
     </Container>
@@ -57,5 +48,20 @@ const NavigationNonAuth = () => (
   </div>
 );
 
-export default Navigation;
-export { NavigationAuth, NavigationNonAuth }
+class Navigation extends Component {
+
+  onLogOutClick = () => this.props.firebase.doSignOut();
+
+  render() {
+    return (
+      <AuthUserContext.Consumer>
+        { authUser => authUser ?
+            <NavigationAuth onLogOutClick={ this.onLogOutClick }/> : 
+            <NavigationNonAuth /> 
+        }
+      </AuthUserContext.Consumer>
+    );
+  }
+}
+
+export default withFirebase(Navigation);
