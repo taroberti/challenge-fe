@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,51 +9,45 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
-
-const formatDate = posixDate => {
-  const date = new Date(posixDate);
-
-  let month = date.getMonth() + 1;
-  month = (month < 10) ? `0${ month }` : month;
-
-  let day = date.getDate();
-  day = (day < 10) ? `0${ day }` : day;
-
-   return `${ day }.${ month }.${ date.getFullYear() }`;
-}
+import * as ROUTES from '../../constants/routes';
+import formatDate from '../Utils';
 
 const OrdersTable = ({ orders }) => (
-  <div>
-    <Table striped bordered hover variant="light">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Booking Date</th>
-          <th>Address</th>
-          <th>Customer</th>
-        </tr>
-      </thead>
+  <Table striped bordered hover variant="light">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Booking Date</th>
+        <th>Address</th>
+        <th>Customer</th>
+        <th>Details</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        {
-          orders.map(order => (
-            <tr key={ order.id }>
-              <td>{ order.order.title }</td>
-              <td>{ formatDate(order.order.bookingDate) }</td>
-              <td>{ order.order.address.street }</td>
-              <td>
-                {
-                  order.order.customer.name ?
-                    order.order.customer.name :
-                    order.order.customer.email
-                }
-              </td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </Table>
-  </div>
+    <tbody>
+      {
+        orders.map(order => (
+          <tr key={ order.id }>
+            <td>{ order.order.title }</td>
+            <td>{ formatDate(order.order.bookingDate) }</td>
+            <td>{ order.order.address.street }</td>
+            <td>
+              {
+                order.order.customer.name ?
+                  order.order.customer.name :
+                  order.order.customer.email
+              }
+            </td>
+            <td>
+              <Link to={`${ ROUTES.ORDERS }/${ order.id }`}>
+                View Details
+              </Link>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </Table>
 )
 
 class OrdersPage extends Component {
@@ -61,7 +56,7 @@ class OrdersPage extends Component {
 
     this.state = {
       orders: [],
-      isLoading: false,
+      isLoading: true,
       error: null
     };
   }
@@ -123,15 +118,13 @@ class OrdersPage extends Component {
     }
 
     return (
-      <div>
-        <Container fluid className='mt-4'>
-          <Row>
-            <Col>
-              <OrdersTable orders={ orders }/>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Container fluid className='mt-4'>
+        <Row>
+          <Col>
+            <OrdersTable orders={ orders }/>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
