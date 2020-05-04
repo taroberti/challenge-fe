@@ -5,12 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 import './index.css';
 
 import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
 import { posixToDate } from '../Utils/dateHelper';
+import EditOrderModal from '../EditOrder'
 
 const OrderCard = ({ order }) => { 
   const { title, bookingDate, address, customer } = order;
@@ -94,7 +96,8 @@ class OrderDetailsPage extends Component {
     this.state = {
       order: {},
       isLoading: true,
-      error: null
+      error: null,
+      show: false
     };
   }
 
@@ -119,8 +122,33 @@ class OrderDetailsPage extends Component {
       )
   }
 
+  handleShow = () => {
+    this.setState({ show: true });
+  }
+
+  handleClose = () => {
+    this.setState({ show: false, isLoading: true });
+
+    fetch(`${ SERVER_CONFIG.URL }:${ SERVER_CONFIG.port }${ SERVER_CONFIG.paths.orders }/${ this.orderId }`)
+      .then(res => res.json())
+      .then(result => {
+        console.log(result.order)
+          this.setState({
+            isLoading: false,
+            order: result.order
+          });
+        },
+        error => {
+          this.setState({
+            isLoading: false,
+            error
+          });
+        }
+      )
+  }
+
   render() {
-    const { error, isLoading, order } = this.state;
+    const { error, isLoading, order, show } = this.state;
 
     if(isLoading) {
       return (
@@ -147,8 +175,7 @@ class OrderDetailsPage extends Component {
         <Container fluid className='mt-4'>
           <Row>
             <Col className='text-center'>
-              <h5>There was a problem fetching the Orders.</h5>
-              <h6>Error: { error }</h6>
+              <h5>There was a problem fetching the Order.</h5>
             </Col>
           </Row>
         </Container>
@@ -162,6 +189,22 @@ class OrderDetailsPage extends Component {
             <OrderCard order={ order }/>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Button className='button-order' block variant="dark" onClick={ this.handleShow }>
+              Edit Order
+            </Button>
+          </Col>
+        </Row>
+
+        <EditOrderModal
+          show={ show }
+          handleClose={ this.handleClose }
+          orderId={ this.orderId }
+          title={ order.title }
+          bookingDate={ order.bookingDate }
+        />
+
       </Container>
     );
   }

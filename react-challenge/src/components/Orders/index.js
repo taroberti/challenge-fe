@@ -86,10 +86,27 @@ class OrdersPage extends Component {
 
   handleShow = () => {
     this.setState({ show: true });
+    
   }
 
   handleClose = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, isLoading: true });
+
+    fetch(`${ SERVER_CONFIG.URL }:${ SERVER_CONFIG.port }${ SERVER_CONFIG.paths.orders }`)
+      .then(res => res.json())
+      .then(result => {
+          this.setState({
+            isLoading: false,
+            orders: result.orders
+          });
+        },
+        error => {
+          this.setState({
+            isLoading: false,
+            error
+          });
+        }
+      )
   }
 
   render() {
