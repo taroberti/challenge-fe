@@ -10,7 +10,7 @@ import './index.css';
 
 import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
-import formatDate from '../Utils';
+import { posixToDate } from '../Utils/dateHelper';
 
 const OrderCard = ({ order }) => { 
   const { title, bookingDate, address, customer } = order;
@@ -29,7 +29,7 @@ const OrderCard = ({ order }) => {
     <Card.Header>Booking Date</Card.Header>
     <Card.Body>
       <Card.Text>
-        { formatDate(bookingDate) }
+        { posixToDate(bookingDate) }
       </Card.Text>
     </Card.Body>
 

@@ -7,12 +7,11 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 
 import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
 import * as ROUTES from '../../constants/routes';
-import formatDate from '../Utils';
+import { posixToDate } from '../Utils/dateHelper';
 import CreateOrderModal from '../CreateOrder'
 
 const OrdersTable = ({ orders }) => (
@@ -32,7 +31,7 @@ const OrdersTable = ({ orders }) => (
         orders.map(order => (
           <tr key={ order.id }>
             <td>{ order.order.title }</td>
-            <td>{ formatDate(order.order.bookingDate) }</td>
+            <td>{ posixToDate(order.order.bookingDate) }</td>
             <td>{ order.order.address.street }</td>
             <td>
               {
@@ -122,7 +121,6 @@ class OrdersPage extends Component {
           <Row>
             <Col className='text-center'>
               <h5>There was a problem fetching the Orders.</h5>
-              <h6>Error: { error }</h6>
             </Col>
           </Row>
         </Container>
