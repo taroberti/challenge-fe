@@ -6,11 +6,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
 import * as ROUTES from '../../constants/routes';
 import formatDate from '../Utils';
+import CreateOrderModal from '../CreateOrder'
 
 const OrdersTable = ({ orders }) => (
   <Table striped bordered hover variant="light">
@@ -57,7 +60,8 @@ class OrdersPage extends Component {
     this.state = {
       orders: [],
       isLoading: true,
-      error: null
+      error: null,
+      show: false
     };
   }
 
@@ -81,8 +85,16 @@ class OrdersPage extends Component {
       )
   }
 
+  handleShow = () => {
+    this.setState({ show: true });
+  }
+
+  handleClose = () => {
+    this.setState({ show: false });
+  }
+
   render() {
-    const { error, isLoading, orders } = this.state;
+    const { error, isLoading, orders, show } = this.state;
 
     if(isLoading) {
       return (
@@ -118,12 +130,24 @@ class OrdersPage extends Component {
     }
 
     return (
-      <Container fluid className='mt-4'>
+      <Container fluid className='mt-3'>
         <Row>
+          <Col className='text-left'>
+            <h4>Orders</h4>
+          </Col>
+          <Col className='text-right'>
+            <Button variant="secondary" onClick={ this.handleShow }>Create new Order</Button>
+          </Col>
+        </Row>
+
+        <Row className='mt-3'>
           <Col>
             <OrdersTable orders={ orders }/>
           </Col>
         </Row>
+
+        <CreateOrderModal show={ show } handleClose={ this.handleClose } />
+
       </Container>
     );
   }
