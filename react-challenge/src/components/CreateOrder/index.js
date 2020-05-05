@@ -175,3 +175,4 @@ class CreateOrderModal extends Component {
 }
 
 export default withAuthorization(CreateOrderModal);
+export { CreateOrderModal };
