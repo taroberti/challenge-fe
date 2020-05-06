@@ -1,12 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Before anything
+In the project directory (react-challenge):
 
-In the project directory (react-challenge), you can run:
+Please, add the firebaseConfig.js to the react-challenge/src/config directory.
 
 ### `npm install`
 
-Please run this command when first downloading this repository.
+Please, run this command when first downloading this repository.
+
+## Available Scripts
+
+In the project directory (react-challenge), you can run:
 
 ### `npm start`
 

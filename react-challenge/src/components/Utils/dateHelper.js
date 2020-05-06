@@ -1,3 +1,4 @@
+// Receives a posix date and returns it on the format dd.mm.yyyy
 const posixToDate = posixDate => {
   const date = new Date(posixDate);
 
@@ -10,6 +11,7 @@ const posixToDate = posixDate => {
    return `${ day }.${ month }.${ date.getFullYear() }`;
 }
 
+// Receives a Date and returns it on the format yyyy-mm-dd which is the way html input supports it.
 const dateToInputDate = date => {
   let month = date.getMonth() + 1;
   month = (month < 10) ? `0${ month }` : month;
@@ -20,6 +22,7 @@ const dateToInputDate = date => {
    return `${ date.getFullYear() }-${ month }-${ day }`;
 }
 
+// Receives a date on the format yyyy-mm-dd and returns a posix date.
 const inputDateToPosix = date => {
   const year = date.substr(0, 4);
   const month = date.substr(5, 2);

@@ -92,6 +92,7 @@ class OrdersPage extends Component {
   handleClose = () => {
     this.setState({ show: false, isLoading: true });
 
+    // When the modal closes, fetch the orders again to get any possible changes.
     fetch(`${ SERVER_CONFIG.URL }:${ SERVER_CONFIG.port }${ SERVER_CONFIG.paths.orders }`)
       .then(res => res.json())
       .then(result => {
