@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { CreateOrderModal } from './index';
 
 it('should render modal with a form to create a new Order', () => {
-  const { getByText, getAllByText } = render(<CreateOrderModal show={ true } handleClose={ () => console.log('close') } />);
+  const { getByText } = render(<CreateOrderModal show={ true } handleClose={ () => console.log('close') } />);
   
   expect(getByText('Create new Order')).toBeInTheDocument(); // Modal title
   expect(getByText('Title:')).toBeInTheDocument();

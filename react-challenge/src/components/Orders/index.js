@@ -144,6 +144,12 @@ class OrdersPage extends Component {
       );
     }
 
+    if(show) {
+      return (
+        <CreateOrderModal show={ show } handleClose={ this.handleClose } />
+      );
+    }
+
     return (
       <Container fluid className='mt-3'>
         <Row>
@@ -160,12 +166,10 @@ class OrdersPage extends Component {
             <OrdersTable orders={ orders }/>
           </Col>
         </Row>
-
-        <CreateOrderModal show={ show } handleClose={ this.handleClose } />
-
       </Container>
     );
   }
 }
 
 export default withAuthorization(OrdersPage);
+export { OrdersPage };

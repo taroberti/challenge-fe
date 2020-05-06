@@ -103,3 +103,4 @@ class LogInFormBase extends Component {
 const LogInForm = withRouter(withFirebase(LogInFormBase));
 
 export default LogInPage;
+export { LogInFormBase };

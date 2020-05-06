@@ -9,7 +9,7 @@ import { withAuthorization } from '../Session';
 import SERVER_CONFIG from '../../config/serverConfig.json';
 import { dateToInputDate, inputDateToPosix } from '../Utils/dateHelper';
 
-class CreateOrderModal extends Component {
+class EditOrderModal extends Component {
   constructor(props) {
     super(props);
 
@@ -90,4 +90,5 @@ class CreateOrderModal extends Component {
   }
 }
 
-export default withAuthorization(CreateOrderModal);
+export default withAuthorization(EditOrderModal);
+export { EditOrderModal };

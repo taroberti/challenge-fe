@@ -107,7 +107,6 @@ class OrderDetailsPage extends Component {
     fetch(`${ SERVER_CONFIG.URL }:${ SERVER_CONFIG.port }${ SERVER_CONFIG.paths.orders }/${ this.orderId }`)
       .then(res => res.json())
       .then(result => {
-        console.log(result.order)
           this.setState({
             isLoading: false,
             order: result.order
@@ -132,7 +131,6 @@ class OrderDetailsPage extends Component {
     fetch(`${ SERVER_CONFIG.URL }:${ SERVER_CONFIG.port }${ SERVER_CONFIG.paths.orders }/${ this.orderId }`)
       .then(res => res.json())
       .then(result => {
-        console.log(result.order)
           this.setState({
             isLoading: false,
             order: result.order
@@ -182,6 +180,18 @@ class OrderDetailsPage extends Component {
       );
     }
 
+    if(show) {
+      return (
+        <EditOrderModal
+          show={ show }
+          handleClose={ this.handleClose }
+          orderId={ this.orderId }
+          title={ order.title }
+          bookingDate={ order.bookingDate }
+        />
+      );
+    }
+
     return (
       <Container fluid className='mt-4'>
         <Row>
@@ -196,18 +206,10 @@ class OrderDetailsPage extends Component {
             </Button>
           </Col>
         </Row>
-
-        <EditOrderModal
-          show={ show }
-          handleClose={ this.handleClose }
-          orderId={ this.orderId }
-          title={ order.title }
-          bookingDate={ order.bookingDate }
-        />
-
       </Container>
     );
   }
 }
 
 export default withAuthorization(OrderDetailsPage);
+export { OrderDetailsPage };
